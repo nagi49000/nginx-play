@@ -32,4 +32,5 @@ jobs:
         with:
           file: docker-compose.yml
           service: nginx-web
+          workdir: ./services/mtls
           command: ls
