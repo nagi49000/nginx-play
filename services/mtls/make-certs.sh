@@ -3,6 +3,7 @@ set -eux
 
 # all certs will be made in this folder. To clear all certs created,
 # delete the following folder
+cd `dirname $0`
 mkdir -p certs-folder
 cd certs-folder
 
