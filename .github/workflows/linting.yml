@@ -30,4 +30,4 @@ jobs:
           file: docker-compose.yml
           service: nginx-web
           workdir: ./services/mtls
-          command: ./services/mtls/run-curl-command.sh
+          command: run-curl-command.sh
