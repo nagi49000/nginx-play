@@ -29,5 +29,5 @@ jobs:
         with:
           file: docker-compose.yml
           service: nginx-web
-          workdir: ./services/mtls/certs-folder
-          command: curl https://localhost:443 --cacert ca.crt --key client.key --cert client.crt
+          workdir: ./services/mtls
+          command: run-curl-command.sh
