@@ -31,4 +31,5 @@ jobs:
         run: |
           docker-compose up --build --detach
           sleep 1
+          ./run-curl-commands.sh
           docker-compose down
