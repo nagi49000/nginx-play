@@ -7,3 +7,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8443:443
+    volumes:
+      - ./certs-folder/server.key:/etc/nginx/ssl/server.key
+      - ./certs-folder/server.crt:/etc/nginx/ssl/server.crt
+      - ./certs-folder/ca.crt:/etc/nginx/ca_certs/ca.crt

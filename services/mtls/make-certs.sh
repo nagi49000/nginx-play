@@ -1,4 +1,10 @@
 #!/bin/bash
+set -eux
+
+# all certs will be made in this folder. To clear all certs created,
+# delete the following folder
+mkdir -p certs-folder
+cd certs-folder
 
 # Make the certificates for the overall Certificate Authority (CA).
 # This will represent the body/authority for authorizing all
@@ -56,7 +62,7 @@ openssl x509 \
   -CAcreateserial \
   -days 30
 
-# debug
-for f in $(ls *.crt) do
-    openssl x509 -in ${f} -text -noout
+# debug - spit out details on each .crt file
+for f in $(ls *.crt); do
+    openssl x509 -in $f -text -noout
 done
