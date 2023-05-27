@@ -1,12 +1,11 @@
 ---
 name: Linting
 
-
-on:
+on:  # yamllint disable-line rule:truthy
   push:
-    branches: [ "**" ]
+    branches: ["**"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
