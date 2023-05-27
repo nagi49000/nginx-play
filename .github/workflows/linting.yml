@@ -28,4 +28,7 @@ jobs:
       - name: make-certs
         run: ./make-certs.sh
       - name: run-nginx
-        run: docker-compose build
+        run: |
+          docker-compose up --build --detach
+          sleep 1
+          docker-compose down
