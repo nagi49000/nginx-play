@@ -20,17 +20,14 @@ jobs:
 
   mtls:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./services/mtls
     steps:
       - uses: actions/checkout@v3
       - name: make-certs
-        run: ./make-certs.sh
+        run: ./services/mtls/make-certs.sh
       - name: run-nginx
         uses: cloudposse/github-action-docker-compose-test-run@main
         with:
           file: docker-compose.yml
           service: nginx-web
           workdir: ./services/mtls
-          command: ls
+          command: ./services/mtls/run-curl-command.sh
