@@ -26,4 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: make-certs
-        run: make-certs.sh
+        run: |
+          ls
+          make-certs.sh
