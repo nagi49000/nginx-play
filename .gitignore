@@ -168,5 +168,3 @@ cython_debug/
 
 # root CA service files
 services/rootca/certs-folder
-services/rootca/configs
-
