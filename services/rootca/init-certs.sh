@@ -31,15 +31,15 @@ sed "s:REPLACE_WITH_INSTALL_LOCATION:${SCRIPT_DIR}:g" ${SCRIPT_DIR}/templates/op
 
 # create the root CA key
 openssl genrsa -out rootCA/private/ca.key 4096
-# chmod 400 rootCA/private/ca.key
-# openssl rsa -noout -text -in rootCA/private/ca.key # stdout debug on key
+chmod 400 rootCA/private/ca.key
+openssl rsa -noout -text -in rootCA/private/ca.key # stdout debug on key
 
 # create the intermediate CA key. There can be multiple intermediate CAs
 openssl genrsa -out intermediateCA/private/ca.key 4096
-# chmod 400 intermediateCA/private/ca.key
-# openssl rsa -noout -text -in intermediateCA/private/ca.key # stdout debug on key
+chmod 400 intermediateCA/private/ca.key
+openssl rsa -noout -text -in intermediateCA/private/ca.key # stdout debug on key
 
 # create a key for the nginx webserver. In general there will be multiple servers.
 openssl genrsa -out server/server.key 4096
-# chmod 400 server/server.key
-# openssl rsa -noout -text -in server/server.key # stdout debug on key
+chmod 400 server/server.key
+openssl rsa -noout -text -in server/server.key # stdout debug on key
