@@ -3,8 +3,8 @@ set -eux
 
 # this guide follows https://www.golinuxcloud.com/openssl-create-certificate-chain-linux/
 
-# all certs will be made in this folder. To clear all certs created,
-# delete the following folder
+# all certs will be made in 'certs-folder'. To clear all certs created,
+# delete the folder 'certs-folder'
 SCRIPT_DIR=`realpath $(dirname $0)`
 
 cd ${SCRIPT_DIR}

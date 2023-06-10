@@ -1,0 +1,13 @@
+---
+version: "3.7"
+
+services:
+  nginx-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8443:443
+    volumes:
+      - ./certs-folder/server/server.key:/etc/nginx/ssl/server.key
+      - ./certs-folder/server/server.crt:/etc/nginx/ssl/server.crt
