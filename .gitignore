@@ -165,3 +165,8 @@ cython_debug/
 *.crt
 *.pem
 *.srl
+
+# root CA service files
+services/rootca/certs-folder
+services/rootca/configs
+
