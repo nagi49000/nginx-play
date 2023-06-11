@@ -50,12 +50,10 @@ openssl x509 -noout -text -in certs/ca.cert
 # note that there should now be changes and entries in:
 #   certs-folder/rootCA/index.txt
 #   certs-folder/rootCA/serial
-cd ${SCRIPT_DIR}
 
-# ---
 # make a cert chain by bundling all CA certs together
 cd ${SCRIPT_DIR}/certs-folder
-cat intermediateCA/certs/ca.cert rootCA/certs/ca.cert > ca-chain.cert
+cat intermediateCA/certs/ca.cert rootCA/certs/ca.cert > intermediateCA/certs/ca-chain.cert
 cd ${SCRIPT_DIR}
 
 # ---
@@ -82,6 +80,10 @@ openssl ca \
 chmod 444 server.crt
 openssl x509 -noout -text -in server.crt
 
+# note that there should now be changes and entries in:
+#   certs-folder/intermediateCA/index.txt
+#   certs-folder/intermediateCA/serial
+
 # make a full server bundle for mounting in nginx. Note the order of certs
 cat \
   server.crt \
@@ -93,8 +95,6 @@ openssl x509 -noout -text -in fullchain.crt
 cd ${SCRIPT_DIR}
 
 # check the certificate chain is ok
-# openssl verify -CAfile certs-folder/rootCA/certs/ca.cert certs-folder/intermediateCA/certs/ca.cert
-# openssl verify -CAfile certs-folder/ca-chain.cert certs-folder/server/server.crt
 cd ${SCRIPT_DIR}/certs-folder
 openssl verify \
   -CAfile ./rootCA/certs/ca.cert \
