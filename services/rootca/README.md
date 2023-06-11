@@ -30,3 +30,7 @@ An nginx server can then be brought up (which mounts the relevant server certs a
 
 One can then make a `curl` command to the running nginx server, using the CA certs for the root and intermediate.
 This is all wrapped up in a shell script `run-curl-command.sh`.
+
+# Revoking a certificate before the expiration date of the certificate
+
+If one wishes, the certificate from an issuer can be revoked before the expiration date of the certificate. An example of this is in `revoke-cert.sh`.
