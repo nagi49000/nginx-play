@@ -6,7 +6,8 @@ set -eux
 SCRIPT_DIR=`realpath $(dirname $0)`
 cd ${SCRIPT_DIR}
 
-# create the root CA, with all the subj fields populated as per the policy in openssl_root.conf
+# --- root CA operations ---
+# create the (self-signed) root CA, with all the subj fields populated as per the policy in openssl_root.conf
 cd ${SCRIPT_DIR}/certs-folder/rootCA
 openssl req \
   -config openssl_root.cnf \
@@ -22,7 +23,7 @@ chmod 444 certs/ca.cert
 openssl x509 -noout -text -in certs/ca.cert
 cd ${SCRIPT_DIR}
 
-# ---
+# --- intermediate CA operations ---
 # create the intermediate CA, with all the subj fields populated as per the policy in openssl_root.conf
 # first by making the CSR (cert sign request) ...
 cd ${SCRIPT_DIR}/certs-folder/intermediateCA
@@ -51,12 +52,12 @@ openssl x509 -noout -text -in certs/ca.cert
 #   certs-folder/rootCA/index.txt
 #   certs-folder/rootCA/serial
 
-# make a cert chain by bundling all CA certs together
+# make a cert chain by bundling all CA certs for root and intermediate together
 cd ${SCRIPT_DIR}/certs-folder
 cat intermediateCA/certs/ca.cert rootCA/certs/ca.cert > intermediateCA/certs/ca-chain.cert
 cd ${SCRIPT_DIR}
 
-# ---
+# --- server certificate operations ---
 # create the server cert from the intermediate CA
 # first by making the CSR (cert sign request) ...
 cd ${SCRIPT_DIR}/certs-folder/server
@@ -67,7 +68,7 @@ openssl req \
   -sha256 \
   -subj "/CN=localhost"
 
-# ... and then having intermediate CA to sign the CSR and give a cert for the server
+# ... and then having intermediate CA sign the CSR and give a cert for the server
 openssl ca \
   -batch \
   -config ${SCRIPT_DIR}/certs-folder/intermediateCA/openssl_intermediate.cnf \
@@ -84,7 +85,7 @@ openssl x509 -noout -text -in server.crt
 #   certs-folder/intermediateCA/index.txt
 #   certs-folder/intermediateCA/serial
 
-# make a full server bundle for mounting in nginx. Note the order of certs
+# make a full server cert bundle for mounting in nginx. Note the order of certs
 cat \
   server.crt \
   ${SCRIPT_DIR}/certs-folder/intermediateCA/certs/ca.cert \
@@ -94,7 +95,7 @@ chmod 444 fullchain.crt
 openssl x509 -noout -text -in fullchain.crt
 cd ${SCRIPT_DIR}
 
-# check the certificate chain is ok
+# check the certificate chain from root to server is ok
 cd ${SCRIPT_DIR}/certs-folder
 openssl verify \
   -CAfile ./rootCA/certs/ca.cert \
