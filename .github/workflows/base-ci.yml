@@ -1,5 +1,5 @@
 ---
-name: Linting
+name: BaseCI
 
 on:  # yamllint disable-line rule:truthy
   push:
@@ -33,3 +33,25 @@ jobs:
           sleep 1
           ./run-curl-command.sh
           docker-compose down
+
+  rootca:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./services/rootca
+    steps:
+      - uses: actions/checkout@v3
+      - name: init-certs
+        run: ./init-certs.sh
+      - name: make-certs
+        run: ./make-certs.sh
+      - name: run-nginx
+        run: |
+          docker-compose up --build --detach
+          sleep 1
+          ./run-curl-command.sh
+          docker-compose down
+      - name: renew-cert
+        run: ./renew-cert.sh
+      - name: revoke-cert
+        run: ./revoke-cert.sh

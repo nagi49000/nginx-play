@@ -65,6 +65,7 @@ cd ${SCRIPT_DIR}
 #   to use a config file that specifies Subject Alternative Names (SANs), as per
 #   https://www.golinuxcloud.com/openssl-subject-alternative-name/
 #
+# create the server cert from the intermediate CA
 # first by making the CSR (cert sign request) ...
 cd ${SCRIPT_DIR}/certs-folder/server
 openssl req \
