@@ -50,7 +50,7 @@ emailAddress                    = Email Address
 [ v3_intermediate_ca ]                                      # Intermediate CA certificate extensions
 subjectKeyIdentifier = hash                                 # Subject key identifier
 authorityKeyIdentifier = keyid:always,issuer                # Authority key identifier
-basicConstraints = critical, CA:true, pathlen:0             # Basic constraints for a CA
+basicConstraints = critical, CA:true                        # Basic constraints for a CA
 keyUsage = critical, digitalSignature, cRLSign, keyCertSign # Key usage for a CA
 
 [ crl_ext ]                                                 # CRL extensions

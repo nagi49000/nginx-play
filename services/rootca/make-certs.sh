@@ -96,7 +96,7 @@ cd ${SCRIPT_DIR}
 # openssl verify -CAfile certs-folder/rootCA/certs/ca.cert certs-folder/intermediateCA/certs/ca.cert
 # openssl verify -CAfile certs-folder/ca-chain.cert certs-folder/server/server.crt
 cd ${SCRIPT_DIR}/certs-folder
-openssl verify -CAfile \
-  rootCA/certs/ca.cert \
-  intermediateCA/certs/ca.cert \
-  server/server.crt
+openssl verify \
+  -CAfile ./rootCA/certs/ca.cert \
+  -untrusted ./intermediateCA/certs/ca.cert \
+  ./server/server.crt
