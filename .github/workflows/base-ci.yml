@@ -52,6 +52,6 @@ jobs:
           ./run-curl-command.sh
           docker-compose down
       - name: renew-cert
-        run: ./renew-certs.sh
+        run: ./renew-cert.sh
       - name: revoke-cert
-        run: ./revoke-certs.sh
+        run: ./revoke-cert.sh
