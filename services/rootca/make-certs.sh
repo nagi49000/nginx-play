@@ -58,7 +58,13 @@ cat intermediateCA/certs/ca.cert rootCA/certs/ca.cert > intermediateCA/certs/ca-
 cd ${SCRIPT_DIR}
 
 # --- server certificate operations ---
-# create the server cert from the intermediate CA
+# create the server cert from the intermediate CA. The Common Name (CN) here happens to be
+#   localhost, since the test server (nginx) will be running on https://localhost:8443. If the
+#   FQDN is not going to be localhost, then the CN below should be updated to the FQDN that
+#   the server will be running on. It could be an IP address. A better way of specifying these is
+#   to use a config file that specifies Subject Alternative Names (SANs), as per
+#   https://www.golinuxcloud.com/openssl-subject-alternative-name/
+#
 # first by making the CSR (cert sign request) ...
 cd ${SCRIPT_DIR}/certs-folder/server
 openssl req \
