@@ -28,7 +28,6 @@ touch intermediateCA/index.txt
 # configure the config files for rootCA and intermediateCA from template
 sed "s:REPLACE_WITH_INSTALL_LOCATION:${SCRIPT_DIR}:g" ${SCRIPT_DIR}/templates/openssl_root.cnf.template > ${SCRIPT_DIR}/certs-folder/rootCA/openssl_root.cnf
 sed "s:REPLACE_WITH_INSTALL_LOCATION:${SCRIPT_DIR}:g" ${SCRIPT_DIR}/templates/openssl_intermediate.cnf.template > ${SCRIPT_DIR}/certs-folder/intermediateCA/openssl_intermediate.cnf
-cp ${SCRIPT_DIR}/templates/server_cert_ext.cnf.template ${SCRIPT_DIR}/certs-folder/server/server_cert_ext.cnf
 
 # create the root CA key
 openssl genrsa -out rootCA/private/ca.key 4096
