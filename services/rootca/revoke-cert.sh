@@ -4,12 +4,11 @@ set -eux
 # this guide follows https://www.golinuxcloud.com/openssl-create-certificate-chain-linux/
 
 SCRIPT_DIR=`realpath $(dirname $0)`
-cd ${SCRIPT_DIR}
+cd ${SCRIPT_DIR}/certs-folder
 
 # Revoke the server cert. Since the server cert was issued by the intermediate CA,
 # the intermediate CA will be used to revoke the server cert.
-# Similalry, the intermediate cert can also be revoked by the root CA
-cd ${SCRIPT_DIR}/certs-folder
+# Similarly, the intermediate cert can also be revoked by the root CA
 openssl ca -config intermediateCA/openssl_intermediate.cnf -revoke server/server.crt
 
 # update the Certificate Revocation List (CRL) for the intermediate CA

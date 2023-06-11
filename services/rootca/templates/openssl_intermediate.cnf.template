@@ -21,6 +21,7 @@ email_in_dn       = no                                   # Exclude email from th
 name_opt          = ca_default                           # Formatting options for names
 cert_opt          = ca_default                           # Certificate output options
 policy            = policy_loose                         # Certificate policy
+unique_subject    = no                                   # Allow multiple certs with the same DN - otherwise re-issue on expiry is a pain
 
 [ policy_loose ]                                         # Policy for less strict validation
 countryName             = optional                       # Country is optional
