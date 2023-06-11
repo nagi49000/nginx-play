@@ -7,7 +7,7 @@ More details on nginx configuration are available on the [nginx docs pages](http
 
 An explanation of CA certs and certs/keys is available [here](http://www.steves-internet-guide.com/ssl-certificates-explained/)
 
-### Running the example from cold
+## Running the example from cold
 
 All certificates will need to be generated. This includes:
 - the Root Certificate Authority cert and key
@@ -31,6 +31,11 @@ An nginx server can then be brought up (which mounts the relevant server certs a
 One can then make a `curl` command to the running nginx server, using the CA certs for the root and intermediate.
 This is all wrapped up in a shell script `run-curl-command.sh`.
 
-# Revoking a certificate before the expiration date of the certificate
+## Revoking a certificate before the expiration date of the certificate
 
 If one wishes, the certificate from an issuer can be revoked before the expiration date of the certificate. An example of this is in `revoke-cert.sh`.
+
+## Renewing a certificate from expiry
+
+As the expiration date approaches (or after the expiration date), one can use the existing certificate to ask the issuer for a new certificate.
+An example of this is in `renew-cert.sh`.

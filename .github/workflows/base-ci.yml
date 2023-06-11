@@ -45,3 +45,13 @@ jobs:
         run: ./init-certs.sh
       - name: make-certs
         run: ./make-certs.sh
+      - name: run-nginx
+        run: |
+          docker-compose up --build --detach
+          sleep 1
+          ./run-curl-command.sh
+          docker-compose down
+      - name: renew-cert
+        run: ./renew-certs.sh
+      - name: revoke-cert
+        run: ./revoke-certs.sh
