@@ -55,7 +55,7 @@ cd ${SCRIPT_DIR}
 # ---
 # make a cert chain by bundling all CA certs together
 cd ${SCRIPT_DIR}/certs-folder
-cat rootCA/certs/ca.cert intermediateCA/certs/ca.cert > ca-chain.cert
+cat intermediateCA/certs/ca.cert rootCA/certs/ca.cert > ca-chain.cert
 cd ${SCRIPT_DIR}
 
 # ---
@@ -67,18 +67,36 @@ openssl req \
   -out server.csr \
   -new \
   -sha256 \
-  -subj "/C=US/ST=California/O=Example Corp/CN=localhost"
+  -subj "/CN=localhost"
 
 # ... and then having intermediate CA to sign the CSR and give a cert for the server
 openssl ca \
   -batch \
   -config ${SCRIPT_DIR}/certs-folder/intermediateCA/openssl_intermediate.cnf \
-  -extensions v3_intermediate_ca \
+  -extensions server_cert \
   -days 30 \
   -notext \
   -md sha256 \
   -in server.csr \
   -out server.crt
-
 chmod 444 server.crt
 openssl x509 -noout -text -in server.crt
+
+# make a full server bundle for mounting in nginx. Note the order of certs
+cat \
+  server.crt \
+  ${SCRIPT_DIR}/certs-folder/intermediateCA/certs/ca.cert \
+  ${SCRIPT_DIR}/certs-folder/rootCA/certs/ca.cert \
+  > fullchain.crt
+chmod 444 fullchain.crt
+openssl x509 -noout -text -in fullchain.crt
+cd ${SCRIPT_DIR}
+
+# check the certificate chain is ok
+# openssl verify -CAfile certs-folder/rootCA/certs/ca.cert certs-folder/intermediateCA/certs/ca.cert
+# openssl verify -CAfile certs-folder/ca-chain.cert certs-folder/server/server.crt
+cd ${SCRIPT_DIR}/certs-folder
+openssl verify -CAfile \
+  rootCA/certs/ca.cert \
+  intermediateCA/certs/ca.cert \
+  server/server.crt

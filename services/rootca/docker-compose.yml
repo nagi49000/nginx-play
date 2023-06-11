@@ -10,4 +10,4 @@ services:
       - 8443:443
     volumes:
       - ./certs-folder/server/server.key:/etc/nginx/ssl/server.key
-      - ./certs-folder/server/server.crt:/etc/nginx/ssl/server.crt
+      - ./certs-folder/server/fullchain.crt:/etc/nginx/ssl/server.crt

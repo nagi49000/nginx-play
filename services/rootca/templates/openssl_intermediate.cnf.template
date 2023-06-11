@@ -57,7 +57,7 @@ keyUsage = critical, digitalSignature, cRLSign, keyCertSign # Key usage for a CA
 authorityKeyIdentifier=keyid:always                         # Authority key identifier
 
 [ server_cert ]                                             # Server certificate extensions
-basicConstraints = CA:FALSE                                 # Not a CA certificate
+basicConstraints = CA:false                                 # Not a CA certificate
 nsCertType = server                                         # Server certificate type
 keyUsage = critical, digitalSignature, keyEncipherment      # Key usage for a server cert
 extendedKeyUsage = serverAuth                               # Extended key usage for server authentication purposes (e.g., TLS/SSL servers).
